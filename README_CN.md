@@ -375,7 +375,74 @@ A: 如果你使用 Codex 的 agent 系统，需要把 `.toml` 文件复制到 `~
 
 ---
 
-## 十一、关键文件快速索引
+## 十一、GitHub 仓库
+
+- **地址**: https://github.com/newlany/patent-skills
+- **分支**: `main`
+- **用途**: 集中管理所有专利 skill，支持 Claude Code 和 Codex 同步
+
+---
+
+## 十二、同步 Skill（patent-skills-sync）
+
+这是一个可以在 Claude Code 和 Codex 上通用的同步技能，用于保持 GitHub 仓库和本地 skill 目录一致。
+
+### 使用方法
+
+在 Claude Code 或 Codex 中直接说：
+
+```
+同步技能          ← 查看状态并拉取最新
+更新技能          ← 从 GitHub 拉取最新版本
+推送技能          ← 把本地修改推送到 GitHub
+```
+
+或直接运行命令：
+
+```bash
+# 查看同步状态
+python3 ~/.codex/patent-skills-backup/universal/patent-skills-sync/scripts/sync_patent_skills.py status
+
+# 从 GitHub 拉取最新并安装
+python3 ~/.codex/patent-skills-backup/universal/patent-skills-sync/scripts/sync_patent_skills.py pull
+
+# 只同步特定技能
+python3 ~/.codex/patent-skills-backup/universal/patent-skills-sync/scripts/sync_patent_skills.py pull --skills patent-cn,patent-cn-draft
+
+# 只安装到 Claude Code
+python3 ~/.codex/patent-skills-backup/universal/patent-skills-sync/scripts/sync_patent_skills.py pull --target claude
+
+# 推送本地修改到 GitHub
+python3 ~/.codex/patent-skills-backup/universal/patent-skills-sync/scripts/sync_patent_skills.py push -m "描述修改内容"
+
+# 查看差异
+python3 ~/.codex/patent-skills-backup/universal/patent-skills-sync/scripts/sync_patent_skills.py diff
+```
+
+### 同步原理
+
+```
+GitHub (newlany/patent-skills)
+        ↕ pull / push
+本地克隆 (~/.codex/patent-skills-backup/universal/)
+        ↕ symlink
+Claude Code (~/.claude/skills/)  +  Codex (~/.codex/skills/)
+```
+
+所有平台的 skill 都是指向同一个源文件的符号链接，修改一处即处处生效。
+
+### 代理支持
+
+如果需要代理，脚本会自动使用 `http://127.0.0.1:7897`。也可以手动设置：
+
+```bash
+export https_proxy=http://127.0.0.1:7897
+export http_proxy=http://127.0.0.1:7897
+```
+
+---
+
+## 十三、关键文件快速索引
 
 | 文件 | 用途 |
 |------|------|
@@ -384,6 +451,7 @@ A: 如果你使用 Codex 的 agent 系统，需要把 `.toml` 文件复制到 `~
 | `WORKFLOW-CONSTRAINTS.md` | 约束架构设计文档 |
 | `universal/CLAUDE.md` | 全局规则（安装到 `~/.claude/CLAUDE.md`） |
 | `universal/install.sh` | 一键安装脚本 |
+| `universal/patent-skills-sync/` | 同步 skill（GitHub ↔ 本地） |
 | `universal/hooks/hooks.json` | 钩子配置 |
 | `universal/hooks/patent_stage_gate.py` | 阶段门控脚本 |
 | `universal/hooks/patent_artifact_reminder.py` | 工件注册提醒脚本 |
