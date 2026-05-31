@@ -1,0 +1,7 @@
+interface:
+  display_name: "补正替换页DOCX"
+  short_description: "补正通知书处理、Word修正和替换页生成"
+  default_prompt: "请使用 $patent-support-correction-docx 处理补正通知书和原申请 Word 文件，提取补正要求、修正文档并生成替换页。"
+
+policy:
+  allow_implicit_invocation: false

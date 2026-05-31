@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文专利答复编排器"
+  short_description: "统一分流审查意见、补正、替换页、无效和口审准备任务"
+  default_prompt: "请使用 $patent-cn-response 判断当前答复类任务属于 OA、补正还是无效，并进入对应内部流程。"

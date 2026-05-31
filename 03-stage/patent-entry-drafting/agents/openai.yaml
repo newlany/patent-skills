@@ -1,0 +1,7 @@
+interface:
+  display_name: "专利申请撰写引擎"
+  short_description: "patent-cn-draft 背后的线性撰写兼容引擎"
+  default_prompt: "请使用 $patent-entry-drafting 作为兼容引擎处理这篇技术交底；新任务优先从 $patent-cn-draft 进入。"
+
+policy:
+  allow_implicit_invocation: false

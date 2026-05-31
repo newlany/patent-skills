@@ -1,0 +1,7 @@
+interface:
+  display_name: "专利专题研究"
+  short_description: "创造性、公知常识、法26、功能性特征等专题研究报告"
+  default_prompt: "请使用 $patent-research-topic 围绕指定专利专题做深度研究，输出来源分级、问题地图、长期可复用报告和附录。"
+
+policy:
+  allow_implicit_invocation: false

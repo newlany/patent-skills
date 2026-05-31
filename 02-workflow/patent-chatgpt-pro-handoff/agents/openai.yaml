@@ -1,0 +1,7 @@
+interface:
+  display_name: "Patent ChatGPT Pro Handoff"
+  short_description: "Prepare patent handoff bundles for ChatGPT Pro"
+  default_prompt: "Use $patent-chatgpt-pro-handoff to prepare a browser ChatGPT Pro handoff bundle for this patent task."
+
+policy:
+  allow_implicit_invocation: false

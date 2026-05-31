@@ -1,0 +1,7 @@
+interface:
+  display_name: "Patent External Brief DOCX"
+  short_description: "Convert patent communication Markdown to polished DOCX"
+  default_prompt: "Use $patent-external-brief-docx to convert this patent external communication Markdown into a polished DOCX."
+
+policy:
+  allow_implicit_invocation: false

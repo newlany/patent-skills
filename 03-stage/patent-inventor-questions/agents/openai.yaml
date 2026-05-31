@@ -1,0 +1,7 @@
+interface:
+  display_name: "Patent Inventor Questions"
+  short_description: "Draft concise inventor supplement questions for CN patents"
+  default_prompt: "Use $patent-inventor-questions to draft a concise inventor supplement question list for this Chinese patent disclosure."
+
+policy:
+  allow_implicit_invocation: true

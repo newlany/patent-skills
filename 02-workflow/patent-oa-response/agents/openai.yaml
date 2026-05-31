@@ -1,0 +1,8 @@
+interface:
+  display_name: "审查意见答复"
+  short_description: "单入口中国专利 OA 应答流程与确认闸门"
+  brand_color: "#2563EB"
+  default_prompt: "请使用 $patent-oa-response 处理中国专利审查意见答复；无论是全流程还是单阶段任务，都保持单入口路由、现行有效权利要求状态锚点和确认闸门。"
+
+policy:
+  allow_implicit_invocation: true

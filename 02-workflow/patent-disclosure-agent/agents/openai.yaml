@@ -1,0 +1,7 @@
+interface:
+  display_name: "Patent Disclosure Agent"
+  short_description: "单技能路由技术交底分析、缺陷审查与补料问题"
+  default_prompt: "Use $patent-disclosure-agent to process this technical disclosure. Whether I want the full 01/02/03 workflow or only one stage such as the analysis report, defect review, or inventor follow-up questions, use this one skill, preserve formulas with $patent-docx-math when needed, and keep the output bundle consistent."
+
+policy:
+  allow_implicit_invocation: true

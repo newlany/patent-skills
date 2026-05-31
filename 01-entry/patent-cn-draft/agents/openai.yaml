@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文专利撰写编排器"
+  short_description: "从交底到查新、重构、权利要求、说明书、附图和 QC 的统一撰写入口"
+  default_prompt: "请使用 $patent-cn-draft 根据这份技术交底启动中文专利撰写流程，建立案件目录，按阶段图推进，并在每阶段登记产物和状态。"

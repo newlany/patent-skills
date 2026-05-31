@@ -1,0 +1,138 @@
+{
+  "schema_version": "patent-tool-registry/v1",
+  "description": "Canonical JSON-first tool registry for the local Chinese patent workflow.",
+  "tools": {
+    "workflow.doctor": {
+      "description": "Check local patent workflow dependencies.",
+      "category": "workflow",
+      "script": "/Users/chrynos/.codex/skills/patent-entry-drafting/scripts/patent_workflow.py",
+      "argv": ["{python}", "{script}", "doctor", "--json"],
+      "stdout_json": true,
+      "required": []
+    },
+    "workflow.validate": {
+      "description": "Generate 输出/定稿/验证报告.md and update manifest status.",
+      "category": "workflow",
+      "stage": "07_qc",
+      "script": "/Users/chrynos/.codex/skills/patent-entry-drafting/scripts/patent_workflow.py",
+      "argv": ["{python}", "{script}", "validate", "--case-dir", "{case_dir}", "--json"],
+      "stdout_json": true,
+      "required": ["case_dir"]
+    },
+    "workflow.metrics": {
+      "description": "Summarize workflow events, dependency calls, and stage durations.",
+      "category": "workflow",
+      "script": "/Users/chrynos/.codex/skills/patent-entry-drafting/scripts/patent_workflow.py",
+      "argv": ["{python}", "{script}", "metrics", "--case-dir", "{case_dir}", "--json"],
+      "stdout_json": true,
+      "required": ["case_dir"]
+    },
+    "qc.micro": {
+      "description": "Run deterministic first-pass QC for headings, abstract, claims, figures, placeholders, and reference signs.",
+      "category": "qc",
+      "stage": "07_qc",
+      "script": "/Users/chrynos/.codex/skills/patent-entry-drafting/scripts/patent_qc_micro.py",
+      "argv": ["{python}", "{script}", "check", "{input}", "--json"],
+      "stdout_json": true,
+      "required": ["input"]
+    },
+    "docx.inspect": {
+      "description": "Inspect DOCX package structure, formulas, tracked changes, comments, and section headings.",
+      "category": "docx",
+      "stage": "07_qc",
+      "script": "/Users/chrynos/.codex/skills/patent-support-docx-math/scripts/inspect_docx.py",
+      "argv": ["{python}", "{script}", "{input}", "--json"],
+      "stdout_json": true,
+      "required": ["input"]
+    },
+    "docx.extract_math_markdown": {
+      "description": "Extract formula-aware markdown from a DOCX file.",
+      "category": "docx",
+      "stage": "01_disclosure",
+      "script": "/Users/chrynos/.codex/skills/patent-support-docx-math/scripts/extract_math_markdown.py",
+      "argv": ["{python}", "{script}", "{input}", "--output", "{output}", "--json"],
+      "stdout_json": true,
+      "required": ["input", "output"]
+    },
+    "docx.style_invariance": {
+      "description": "Compare source and revised DOCX key style/theme parts and run-count profile to detect accidental formatting drift.",
+      "category": "docx",
+      "stage": "07_qc",
+      "script": "/Users/chrynos/.codex/skills/patent-support-docx-math/scripts/docx_style_invariance.py",
+      "argv": ["{python}", "{script}", "{input}", "{output}", "--json"],
+      "stdout_json": true,
+      "required": ["input", "output"]
+    },
+    "qc.cn_formality.scan": {
+      "description": "Scan a Chinese patent DOCX for CNIPA-style formal defects.",
+      "category": "qc",
+      "stage": "07_qc",
+      "script": "/Users/chrynos/.codex/skills/patent-qc-cn-formality/scripts/check_patent_formal.py",
+      "argv": ["{python}", "{script}", "scan", "{input}", "--json"],
+      "stdout_json": true,
+      "required": ["input"]
+    },
+    "qc.cn_formality.fix": {
+      "description": "Apply safe CN formality fixes and write a corrected DOCX copy.",
+      "category": "qc",
+      "stage": "07_qc",
+      "script": "/Users/chrynos/.codex/skills/patent-qc-cn-formality/scripts/check_patent_formal.py",
+      "argv": ["{python}", "{script}", "fix", "{input}", "--output", "{output}", "--json"],
+      "stdout_json": true,
+      "required": ["input", "output"]
+    },
+    "qc.application_consistency.check": {
+      "description": "Check application consistency and reference-sign usage with an optional mapping.",
+      "category": "qc",
+      "stage": "07_qc",
+      "script": "/Users/chrynos/.codex/skills/patent-qc-application-consistency/scripts/patent_doc_tools.py",
+      "argv": ["{python}", "{script}", "check", "{input}", "--json"],
+      "stdout_json": true,
+      "required": ["input"]
+    },
+    "prior_art.bigquery.doctor": {
+      "description": "Check BigQuery credentials and billing project.",
+      "category": "search",
+      "script": "/Users/chrynos/.codex/skills/patent-stage-prior-art-search/scripts/bigquery_search.py",
+      "argv": ["{python}", "{script}", "doctor"],
+      "stdout_json": true,
+      "required": []
+    },
+    "prior_art.bigquery.search": {
+      "description": "Search Google Patents public data via BigQuery.",
+      "category": "search",
+      "stage": "02_search",
+      "script": "/Users/chrynos/.codex/skills/patent-stage-prior-art-search/scripts/bigquery_search.py",
+      "argv": ["{python}", "{script}", "search", "{query}", "--limit", "{limit}", "--country", "{country}"],
+      "stdout_json": true,
+      "required": ["query"],
+      "defaults": {
+        "limit": "10",
+        "country": "US"
+      }
+    },
+    "prior_art.reference_bundle": {
+      "description": "Download/package patent references into a save directory.",
+      "category": "search",
+      "stage": "02_search",
+      "script": "/Users/chrynos/.codex/skills/patent-stage-prior-art-search/scripts/download_reference_bundle.py",
+      "argv": ["{python}", "{script}", "{publication_numbers}", "--save-dir", "{save_dir}"],
+      "stdout_json": true,
+      "required": ["publication_numbers", "save_dir"],
+      "split_args": ["publication_numbers"]
+    },
+    "figure.flowchart": {
+      "description": "Render a deterministic Chinese patent method flowchart as SVG and optional layout JSON.",
+      "category": "figure",
+      "stage": "06_figures",
+      "script": "/Users/chrynos/.codex/skills/patent-drawing-generator/scripts/patent_flowchart.py",
+      "argv": ["{python}", "{script}", "--steps-file", "{steps_file}", "--out", "{output}", "--layout-json", "{layout_json}", "--quiet"],
+      "stdout_json": false,
+      "required": ["steps_file", "output", "layout_json"],
+      "outputs": {
+        "svg": "{output}",
+        "layout_json": "{layout_json}"
+      }
+    }
+  }
+}

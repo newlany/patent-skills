@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/chrynos/.codex/patent-skills-backup/universal/hooks/patent_stage_gate.py",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/chrynos/.codex/patent-skills-backup/universal/hooks/patent_artifact_reminder.py",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/chrynos/.codex/patent-skills-backup/universal/hooks/patent_completion_gate.py",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}

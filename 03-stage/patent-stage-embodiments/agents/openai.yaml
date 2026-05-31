@@ -1,0 +1,7 @@
+interface:
+  display_name: "实施方式阶段"
+  short_description: "具体实施方式、实施例、对比例、测试设计和结果分析"
+  default_prompt: "请使用 $patent-stage-embodiments 根据权利要求、发明内容和实验/附图材料撰写或检查具体实施方式、实施例、对比例和测试结果。"
+
+policy:
+  allow_implicit_invocation: false

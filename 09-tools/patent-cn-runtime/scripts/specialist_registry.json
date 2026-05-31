@@ -1,0 +1,346 @@
+{
+  "schema_version": "patent-specialist-registry/v1",
+  "description": "Internal specialist map for the patent-cn multi-orchestrator architecture.",
+  "routing_architecture": {
+    "version": "layered-router/v2",
+    "decision_order": [
+      "normalize_explicit_skill_name",
+      "choose_public_intent",
+      "select_stage_or_specialist",
+      "select_delivery",
+      "check_low_confidence_risks"
+    ],
+    "intent_values": ["drafting", "review", "response", "research", "support", "doctor"],
+    "public_routes": {
+      "drafting": {
+        "workflow": "patent-cn-draft",
+        "positive_triggers": ["技术交底", "发明人说明", "研发材料", "技术方案草稿", "撰写专利", "权利要求书", "说明书初稿"],
+        "negative_triggers": ["审查意见", "补正通知书", "无效", "替换页"],
+        "first_action": "start or locate a drafting case, then run intake or disclosure analysis"
+      },
+      "review": {
+        "workflow": "patent-cn-review",
+        "positive_triggers": ["成稿审查", "形式检查", "最终检查", "提交包", "标号一致性", "摘要字数", "DOCX复核"],
+        "negative_triggers": ["原始交底", "审查意见答复", "无效答辩"],
+        "first_action": "inspect the existing draft or package and run focused QC"
+      },
+      "response": {
+        "workflow": "patent-cn-response",
+        "positive_triggers": ["审查意见", "D1", "D2", "D3", "创造性答复", "补正通知书", "替换页", "无效", "口审"],
+        "negative_triggers": ["新申请撰写", "原始交底直接出初稿"],
+        "first_action": "classify OA, correction, or invalidity route"
+      },
+      "research": {
+        "workflow": "patent-cn",
+        "positive_triggers": ["查新", "现有技术", "法律状态", "同族", "审查历史", "专题研究", "公知常识", "裁判规则"],
+        "negative_triggers": ["撰写完整申请", "答复书定稿"],
+        "first_action": "choose a research or prior-art specialist"
+      },
+      "support": {
+        "workflow": "patent-cn",
+        "positive_triggers": ["导出DOCX", "问题清单", "客户沟通", "PDF下载", "公式提取", "批注提取", "handoff"],
+        "negative_triggers": ["权利要求范围判断", "修改策略判断"],
+        "first_action": "choose a delivery or document-support specialist after checking whether legal analysis is needed first"
+      },
+      "doctor": {
+        "workflow": "patent-cn-doctor",
+        "positive_triggers": ["doctor", "health", "status", "依赖检查", "系统检查"],
+        "negative_triggers": [],
+        "first_action": "run dependency and registry checks"
+      }
+    },
+    "delivery_routes": {
+      "inventor_question_list_content": {
+        "skill": "patent-inventor-questions",
+        "route_layer": "support-content",
+        "positive_triggers": ["发明人问题清单", "补充问题清单", "补充材料问题清单", "需要发明人补充说明的问题", "inventor follow-up questions"],
+        "requires_analysis_first_when": ["技术交底缺陷未分析", "权利要求边界未判断", "技术效果缺口未定位", "创造性主线未确定"],
+        "negative_triggers": ["正式申请文件", "权利要求书定稿", "说明书定稿", "替换页"]
+      },
+      "external_brief_docx": {
+        "skill": "patent-external-brief-docx",
+        "route_layer": "delivery",
+        "positive_triggers": ["发明人问题清单", "补充问题清单", "申请人沟通", "客户沟通简报", "驳回决定简要分析", "复审分析", "复审建议", "审查意见沟通简报", "查新结果简报", "检索结果简报", "补正沟通", "无效风险说明", "稳定性说明", "提交前确认清单"],
+        "requires_analysis_first_when": ["审查意见", "驳回决定", "创造性判断", "修改权利要求", "技术交底缺陷审查"],
+        "negative_triggers": ["正式申请文件", "权利要求书定稿", "说明书定稿", "替换页"]
+      },
+      "filing_application_docx": {
+        "skill": "patent-cn",
+        "route_layer": "delivery",
+        "default_template": "/Users/chrynos/.codex/skills/patent-cn/templates/专利撰写模板文件.docx",
+        "positive_triggers": ["正式申请文件", "提交包", "申请文件DOCX", "权利要求书定稿", "说明书定稿"],
+        "negative_triggers": ["客户沟通简报", "发明人问题清单"]
+      },
+      "replacement_pages": {
+        "skill": "patent-support-correction-docx",
+        "route_layer": "delivery",
+        "positive_triggers": ["替换页", "补正替换", "权利要求书替换页", "说明书替换页"],
+        "requires_analysis_first_when": ["补正通知书未解析", "修改范围不明确"]
+      },
+      "oa_response_statement_docx": {
+        "skill": "patent-entry-oa-response",
+        "route_layer": "delivery",
+        "default_templates": {
+          "amended": "/Users/chrynos/.codex/skills/patent-entry-oa-response/assets/templates/意见陈述-有修改.docx",
+          "unamended": "/Users/chrynos/.codex/skills/patent-entry-oa-response/assets/templates/意见陈述-无修改.docx"
+        },
+        "positive_triggers": ["意见陈述", "答复书DOCX", "审查意见答复DOCX", "有修改", "无修改"],
+        "requires_analysis_first_when": ["审查意见未拆解", "修改策略未确认", "区别技术特征未确认", "技术问题未确认"]
+      }
+    },
+    "low_confidence_risks": [
+      "wrong route may change claim scope",
+      "wrong route may change amendment strategy",
+      "wrong route may change evidence strategy",
+      "wrong route may change filing-package contents"
+    ]
+  },
+  "public_entries": {
+    "top": "patent-cn",
+    "drafting": "patent-cn-draft",
+    "review": "patent-cn-review",
+    "response": "patent-cn-response",
+    "doctor": "patent-cn-doctor"
+  },
+  "compatibility_entries": {
+    "patent-entry-drafting": "patent-cn-draft",
+    "patent-entry-oa-response": "patent-cn-response",
+    "patent-entry-invalidity": "patent-cn-response"
+  },
+  "specialists": {
+    "drafting.engine": {
+      "skill": "patent-entry-drafting",
+      "category": "drafting-orchestration-engine",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "compatibility-only",
+      "runtime_stage": null
+    },
+    "disclosure.analysis": {
+      "skill": "patent-stage-disclosure-analysis",
+      "category": "drafting-stage",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "standalone-disclosure-analysis-only",
+      "runtime_stage": "01_disclosure"
+    },
+    "prior_art.search": {
+      "skill": "patent-stage-prior-art-search",
+      "category": "drafting-stage-and-standalone-search",
+      "orchestrators": ["patent-cn-draft", "patent-cn"],
+      "direct_use": "standalone-prior-art-search-allowed",
+      "runtime_stage": "02_search"
+    },
+    "route.method.helper": {
+      "skill": "patent-method-route-helper",
+      "category": "route-helper",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "internal-only",
+      "runtime_stage": "03_reconstruction"
+    },
+    "route.process": {
+      "skill": "patent-method-process-route",
+      "category": "route-specialist",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "standalone-route-revision-only",
+      "runtime_stage": "03_reconstruction"
+    },
+    "route.formula_model": {
+      "skill": "patent-method-formula-model",
+      "category": "route-specialist",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "standalone-formula-route-revision-only",
+      "runtime_stage": "03_reconstruction"
+    },
+    "route.runtime_boundary": {
+      "skill": "patent-method-runtime-boundary",
+      "category": "route-specialist",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "standalone-method-route-revision-only",
+      "runtime_stage": "03_reconstruction"
+    },
+    "route.method_boundary_alignment": {
+      "skill": "patent-method-boundary-alignment",
+      "category": "route-specialist",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "standalone-boundary-alignment-only",
+      "runtime_stage": "03_reconstruction"
+    },
+    "section.invention_content": {
+      "skill": "patent-stage-invention-content",
+      "category": "specification-section",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "standalone-section-edit-allowed",
+      "runtime_stage": "05_specification"
+    },
+    "section.embodiments": {
+      "skill": "patent-stage-embodiments",
+      "category": "specification-section",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "standalone-embodiment-edit-allowed",
+      "runtime_stage": "05_specification"
+    },
+    "section.software_embodiment_layout": {
+      "skill": "patent-cn-software-embodiment-layout",
+      "category": "specification-section",
+      "orchestrators": ["patent-cn-draft"],
+      "direct_use": "standalone-software-embodiment-layout-allowed",
+      "runtime_stage": "05_specification"
+    },
+    "figure.drawing": {
+      "skill": "patent-drawing-generator",
+      "category": "figure-specialist",
+      "orchestrators": ["patent-cn-draft", "patent-cn-review"],
+      "direct_use": "standalone-drawing-task-allowed",
+      "runtime_stage": "06_figures"
+    },
+    "docx.math": {
+      "skill": "patent-support-docx-math",
+      "category": "document-support",
+      "orchestrators": ["patent-cn-draft", "patent-cn-review", "patent-cn-response"],
+      "direct_use": "standalone-docx-support-allowed",
+      "runtime_stage": null
+    },
+    "support.external_brief_docx": {
+      "skill": "patent-external-brief-docx",
+      "category": "external-communication-docx",
+      "orchestrators": ["patent-cn", "patent-cn-draft", "patent-cn-review", "patent-cn-response"],
+      "direct_use": "standalone-external-brief-docx-allowed",
+      "runtime_stage": null
+    },
+    "support.inventor_questions": {
+      "skill": "patent-inventor-questions",
+      "category": "client-communication-content",
+      "orchestrators": ["patent-cn", "patent-cn-draft"],
+      "direct_use": "standalone-inventor-question-list-allowed",
+      "runtime_stage": "01_disclosure"
+    },
+    "support.chatgpt_pro_handoff": {
+      "skill": "patent-chatgpt-pro-handoff",
+      "category": "handoff-support",
+      "orchestrators": ["patent-cn", "patent-cn-draft", "patent-cn-review", "patent-cn-response"],
+      "direct_use": "explicit-user-confirmed-handoff-only",
+      "runtime_stage": null
+    },
+    "qc.cn_formality": {
+      "skill": "patent-qc-cn-formality",
+      "category": "qc-specialist",
+      "orchestrators": ["patent-cn-review", "patent-cn-draft"],
+      "direct_use": "standalone-formality-check-allowed",
+      "runtime_stage": "07_qc"
+    },
+    "qc.application_consistency": {
+      "skill": "patent-qc-application-consistency",
+      "category": "qc-specialist",
+      "orchestrators": ["patent-cn-review", "patent-cn-draft"],
+      "direct_use": "standalone-consistency-check-allowed",
+      "runtime_stage": "07_qc"
+    },
+    "response.oa": {
+      "skill": "patent-entry-oa-response",
+      "category": "response-workflow",
+      "orchestrators": ["patent-cn-response"],
+      "direct_use": "compatibility-or-specific-oa-prompt",
+      "runtime_stage": null
+    },
+    "response.correction_docx": {
+      "skill": "patent-support-correction-docx",
+      "category": "response-support",
+      "orchestrators": ["patent-cn-response"],
+      "direct_use": "standalone-correction-task-allowed",
+      "runtime_stage": null
+    },
+    "response.invalidity": {
+      "skill": "patent-entry-invalidity",
+      "category": "response-workflow",
+      "orchestrators": ["patent-cn-response"],
+      "direct_use": "compatibility-or-specific-invalidity-prompt",
+      "runtime_stage": null
+    },
+    "response.invalidity_hearing_prep": {
+      "skill": "patent-stage-invalidity-hearing-prep",
+      "category": "response-stage",
+      "orchestrators": ["patent-cn-response"],
+      "direct_use": "standalone-invalidity-hearing-prep-allowed",
+      "runtime_stage": null
+    },
+    "analysis.fixed_patent": {
+      "skill": "patent-analysis-fixed-patent",
+      "category": "analysis-specialist",
+      "orchestrators": ["patent-cn-response", "patent-cn"],
+      "direct_use": "standalone-fixed-patent-analysis-allowed",
+      "runtime_stage": null
+    },
+    "support.google_patents_pdfs": {
+      "skill": "patent-support-google-patents-pdfs",
+      "category": "evidence-support",
+      "orchestrators": ["patent-cn-draft", "patent-cn-response"],
+      "direct_use": "standalone-pdf-bundle-allowed",
+      "runtime_stage": "02_search"
+    },
+    "research.records": {
+      "skill": "patent-research-records",
+      "category": "research-specialist",
+      "orchestrators": ["patent-cn"],
+      "direct_use": "standalone-record-research-allowed",
+      "runtime_stage": null
+    },
+    "research.topic": {
+      "skill": "patent-research-topic",
+      "category": "research-specialist",
+      "orchestrators": ["patent-cn"],
+      "direct_use": "standalone-topic-research-allowed",
+      "runtime_stage": null
+    }
+  },
+  "adjacent_support_skills": {
+    "read_chinese_files": {
+      "skill": "read-chinese-files",
+      "use_after_route": "file-intake-for-Chinese-paths-and-documents"
+    },
+    "doc": {
+      "skill": "doc",
+      "use_after_route": "general-docx-creation-editing-or-render-checks"
+    },
+    "pdf": {
+      "skill": "pdf",
+      "use_after_route": "pdf-reading-generation-or-render-checks"
+    },
+    "minimax_docx": {
+      "skill": "minimax-docx",
+      "use_after_route": "high-fidelity-docx-generation-or-editing"
+    },
+    "yuandian_legal_api": {
+      "skill": "yuandian-legal-api",
+      "use_after_route": "Chinese-legal-source-retrieval-after-research-route"
+    },
+    "ipeasy_case_fetcher": {
+      "skill": "ipeasy-case-fetcher",
+      "use_after_route": "internal-case-row-fetching-before-patent-workflow"
+    }
+  },
+  "retired_aliases": {
+    "anta-method-patent-agent": "patent-cn-draft",
+    "cn-method-patent-boundary-alignment": "patent-method-boundary-alignment",
+    "cn-method-patent-router-agent": "patent-method-route-helper",
+    "cn-method-patent-workflow-agent": "patent-method-runtime-boundary",
+    "cn-patent-formal-check": "patent-cn-review",
+    "cn-patent-invention-content": "patent-cn-draft",
+    "deep-research": "patent-cn",
+    "download-google-patents-pdfs": "patent-support-google-patents-pdfs",
+    "inventor-brief-docx": "patent-external-brief-docx",
+    "method-patent-embodiment-agent": "patent-stage-embodiments",
+    "patent-analysis-agent": "patent-analysis-fixed-patent",
+    "patent-application-checker": "patent-cn-review",
+    "patent-application-correction-docx": "patent-cn-response",
+    "patent-disclosure-agent": "patent-cn-draft",
+    "patent-docx-math": "patent-support-docx-math",
+    "patent-drafting-router-agent": "patent-cn-draft",
+    "patent-entry-router": "patent-cn",
+    "patent-invalidity-hearing-prep": "patent-cn-response",
+    "patent-invalidity-response-agent": "patent-cn-response",
+    "patent-oa-response": "patent-cn-response",
+    "patent-prior-art-search-agent": "patent-stage-prior-art-search",
+    "patent-topic-deep-research": "patent-research-topic",
+    "patent-workflow-router": "patent-cn",
+    "xmu-method-patent-agent": "patent-cn-draft"
+  }
+}

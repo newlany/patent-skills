@@ -1,0 +1,7 @@
+interface:
+  display_name: "方法案路线助手"
+  short_description: "已确定为方法案后，在工艺、公式模型、运行边界路线之间选择"
+  default_prompt: "请使用 $patent-method-route-helper 判断这个方法类专利应走工艺制备、公式模型，还是运行步骤链/方法边界路线。"
+
+policy:
+  allow_implicit_invocation: false

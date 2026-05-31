@@ -1,0 +1,7 @@
+interface:
+  display_name: "运行边界方法案"
+  short_description: "步骤链、方法边界、状态转移和整稿同步为核心的方法案路线"
+  default_prompt: "请使用 $patent-method-runtime-boundary 处理以运行步骤链、方法边界和整稿同步为核心的方法类专利案件。"
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,7 @@
+interface:
+  display_name: "工艺制备方法案"
+  short_description: "制备、工艺、材料、配方、处理窗口和测试结果驱动的方法案路线"
+  default_prompt: "请使用 $patent-method-process-route 处理工艺/制备/材料路线方法案，围绕工艺步骤、参数窗口、实施例对比例和测试结果组织撰写。"
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,8 @@
+interface:
+  display_name: "安踏方法类申请撰写"
+  short_description: "单技能路由安踏方法类专利撰写各阶段"
+  brand_color: "#0F766E"
+  default_prompt: "请使用 $anta-method-patent-agent 处理安踏方法类案件。无论我是要全流程还是只做某一阶段，例如第3阶段核心特征分析、第8阶段背景技术或第11阶段实施例设计，都只使用这一个 skill，并在每个确认节点停下来。"
+
+policy:
+  allow_implicit_invocation: true

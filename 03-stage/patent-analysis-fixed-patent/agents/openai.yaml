@@ -1,0 +1,7 @@
+interface:
+  display_name: "固定专利分析"
+  short_description: "固定目标专利、D1/D2/D3和争点备忘录分析"
+  default_prompt: "请使用 $patent-analysis-fixed-patent 分析已固定的目标专利或对比文件组，输出权利要求拆解、区别特征、说明书支持和论证压力点。"
+
+policy:
+  allow_implicit_invocation: false

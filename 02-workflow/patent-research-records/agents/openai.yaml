@@ -1,0 +1,7 @@
+interface:
+  display_name: "专利记录核查"
+  short_description: "法律状态、同族、审查历史、无效诉讼记录和官方来源核查"
+  default_prompt: "请使用 $patent-research-records 核查这件专利的官方记录、法律状态、同族、审查历史或无效诉讼资料，并输出带日期和来源层级的备忘录。"
+
+policy:
+  allow_implicit_invocation: false

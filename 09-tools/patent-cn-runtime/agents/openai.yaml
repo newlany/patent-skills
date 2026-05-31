@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文专利运行时"
+  short_description: "内部工具注册表与 JSON-first 工具调用层"
+  default_prompt: "请使用 $patent-cn-runtime 通过 tool_registry.json 调用本地专利工具，并输出标准 patent-tool-run JSON。"

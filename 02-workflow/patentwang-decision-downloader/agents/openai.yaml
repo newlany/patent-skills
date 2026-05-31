@@ -1,0 +1,4 @@
+interface:
+  display_name: "PatentWang Decision Downloader"
+  short_description: "Download invalidity and reexam decisions"
+  default_prompt: "Use $patentwang-decision-downloader to download an invalidity or reexamination decision PDF by case, patent, or decision number."

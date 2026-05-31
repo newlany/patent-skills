@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文专利系统自检"
+  short_description: "检查本地专利流程依赖、脚本、DOCX、检索、流程图和模板是否可用"
+  default_prompt: "请使用 $patent-cn-doctor 检查本地中文专利系统健康状态，并给出 required blockers、optional warnings 和下一步修复建议。"

@@ -1,0 +1,7 @@
+interface:
+  display_name: "中国专利形式检查"
+  short_description: "初审式形式缺陷、编号、句号、摘要字数和章节标题检查"
+  default_prompt: "请使用 $patent-qc-cn-formality 检查这份中国专利 Word 文件的形式缺陷，并在低风险范围内生成保留格式的修订版。"
+
+policy:
+  allow_implicit_invocation: false

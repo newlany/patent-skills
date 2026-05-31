@@ -1,0 +1,6 @@
+# Required for BigQuery-based worldwide patent search.
+google-cloud-bigquery>=3.25.0
+db-dtypes>=1.2.0
+
+# The PatentsView helper uses only the Python standard library and does not
+# require extra packages once PATENTSVIEW_API_KEY is configured.

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Google Patents PDF下载"
+  short_description: "从案件材料提取D1/D2等对比文件并下载PDF"
+  default_prompt: "请使用 $patent-support-google-patents-pdfs 从案件材料中识别对比文件和本申请公开文本，并下载对应 Google Patents PDF 到案件目录。"
+
+policy:
+  allow_implicit_invocation: false

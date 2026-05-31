@@ -1,0 +1,7 @@
+interface:
+  display_name: "申请文件一致性检查"
+  short_description: "附图标记、权利要求引用、说明书一致性和撰写风格检查"
+  default_prompt: "请使用 $patent-qc-application-consistency 检查这套专利申请文件的附图标记、权利要求引用关系、说明书支持、术语一致和撰写风格问题。"
+
+policy:
+  allow_implicit_invocation: false

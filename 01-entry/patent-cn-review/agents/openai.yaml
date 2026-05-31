@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文专利成稿审查"
+  short_description: "统一调度 DOCX、形式、一致性、微工具和 validation 的最终质检入口"
+  default_prompt: "请使用 $patent-cn-review 检查这套中文专利申请文件，运行 DOCX/形式/一致性/微工具检查，并输出统一 review report 和 validation 状态。"

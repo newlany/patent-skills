@@ -1,0 +1,7 @@
+interface:
+  display_name: "现有技术检索阶段"
+  short_description: "交底驱动查新、智慧芽/公开库检索和对比文件下载"
+  default_prompt: "请使用 $patent-stage-prior-art-search 基于交底或重构方案做专利查新；必要时通过授权的智慧芽浏览器检索补强，输出检索式、最接近现有技术、区别特征压力点和检索备忘录。"
+
+policy:
+  allow_implicit_invocation: false

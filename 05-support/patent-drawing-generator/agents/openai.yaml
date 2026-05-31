@@ -1,0 +1,7 @@
+interface:
+  display_name: "专利附图生成"
+  short_description: "专利流程图、结构示意图和附图说明生成"
+  default_prompt: "请使用 $patent-drawing-generator 根据权利要求步骤或结构特征生成中国专利附图和对应附图说明。"
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,7 @@
+interface:
+  display_name: "无效口审准备"
+  short_description: "单技能路由无效过程梳理与口审准备"
+  default_prompt: "Use $patent-invalidity-hearing-prep for this invalidity matter. Whether I want only 无效过程梳理 / 案卷梳理 or the full oral-hearing preparation workflow, use this one skill and start with case sorting before drafting when the file history is not yet stabilized."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "无效口审准备阶段"
+  short_description: "无效案卷梳理、程序时间线和口审文件"
+  default_prompt: "请使用 $patent-stage-invalidity-hearing-prep 梳理无效案卷、程序时间线和攻防框架，并准备口审焦点与临场备答材料。"
+
+policy:
+  allow_implicit_invocation: false

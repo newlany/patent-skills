@@ -1,0 +1,4 @@
+interface:
+  display_name: "发明内容撰写"
+  short_description: "参照成熟中国专利案例起草或改写发明内容与技术效果段落"
+  default_prompt: "Use $cn-patent-invention-content to draft or rewrite the 发明内容 section for this Chinese patent application."

@@ -1,0 +1,7 @@
+interface:
+  display_name: "无效案件入口"
+  short_description: "中国专利无效分析、答复和口审准备内部引擎"
+  default_prompt: "请使用 $patent-entry-invalidity 处理这个无效案件，先判断需要案卷梳理、攻防图、口审准备还是正式答复，并按阶段推进。"
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,7 @@
+interface:
+  display_name: "审查意见答复入口"
+  short_description: "中国专利 OA 答复、D1/Dx核查、改权策略和答复QC引擎"
+  default_prompt: "请使用 $patent-entry-oa-response 处理这份中国专利审查意见，保持现行权利要求状态锚点，依次做审查意见拆解、对比文件核查、改权判断、答复撰写和 QC。"
+
+policy:
+  allow_implicit_invocation: false

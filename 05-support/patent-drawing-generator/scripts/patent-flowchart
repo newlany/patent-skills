@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+set -eu
+SCRIPT=$0
+while [ -L "$SCRIPT" ]; do
+  SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$SCRIPT")" && pwd)
+  TARGET=$(readlink "$SCRIPT")
+  case "$TARGET" in
+    /*) SCRIPT=$TARGET ;;
+    *) SCRIPT=$SCRIPT_DIR/$TARGET ;;
+  esac
+done
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$SCRIPT")" && pwd)
+exec python3 "$SCRIPT_DIR/patent_flowchart.py" "$@"

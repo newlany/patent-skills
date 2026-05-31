@@ -1,0 +1,7 @@
+interface:
+  display_name: "公式模型方法案"
+  short_description: "公式、变量、模型、仿真和优化驱动的方法类专利路线"
+  default_prompt: "请使用 $patent-method-formula-model 处理公式/模型/仿真驱动的方法类专利案件，注意公式保真、变量定义、权利要求布局和说明书同步。"
+
+policy:
+  allow_implicit_invocation: false

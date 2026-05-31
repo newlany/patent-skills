@@ -1,0 +1,6 @@
+interface:
+  display_name: "OA Correction DOCX"
+  short_description: "Process OA correction files and OA filing rows"
+  default_prompt: "Use $oa-correction-docx to process a non-overdue OA correction matter, create the case folder under /Users/chrynos/专利工作区/日常工作/补正处理 with the case volume, case name, and customer name, pause for plan confirmation before editing, self-check the DOCX files, prepare replacement pages, and draft controlled OA filing content."
+policy:
+  allow_implicit_invocation: true

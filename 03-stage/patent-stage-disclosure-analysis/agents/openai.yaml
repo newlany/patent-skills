@@ -1,0 +1,7 @@
+interface:
+  display_name: "交底分析阶段"
+  short_description: "技术交底分析、逻辑重构、缺陷审查和发明人问题清单"
+  default_prompt: "请使用 $patent-stage-disclosure-analysis 分析这份技术交底，输出交底分析报告、逻辑重构与缺陷审查，以及需要发明人补充说明的问题。"
+
+policy:
+  allow_implicit_invocation: false

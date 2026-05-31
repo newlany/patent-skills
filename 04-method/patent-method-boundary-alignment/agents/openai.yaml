@@ -1,0 +1,7 @@
+interface:
+  display_name: "方法边界校准"
+  short_description: "区分运行步骤、前置条件和离线模型"
+  default_prompt: "请使用 $patent-method-boundary-alignment 检查并修正方法类权利要求与说明书中的运行步骤边界、前置条件和离线准备问题，并同步流程图。"
+
+policy:
+  allow_implicit_invocation: false

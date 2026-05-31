@@ -1,0 +1,7 @@
+interface:
+  display_name: "CN Software Patent Spec"
+  short_description: "Chinese software patent spec drafting guide"
+  default_prompt: "Use $patent-cn-software-embodiment-layout to draft or revise 背景技术、发明内容 or 具体实施方式 for a Chinese software patent with method, system/device, electronic device, and storage-medium claims."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,4 @@
+interface:
+  display_name: "专利专题深度研究"
+  short_description: "面向专利知识库与官方资料的专题深度研究工作流和长报告模板"
+  default_prompt: "Use $patent-topic-deep-research to produce a date-verified Chinese patent topic research report with explicit source hierarchy, issue maps, and reusable appendices."

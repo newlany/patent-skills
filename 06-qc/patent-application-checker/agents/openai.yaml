@@ -1,0 +1,4 @@
+interface:
+  display_name: "Patent Application Checker"
+  short_description: "Mark, unmark, and review Chinese patent application files."
+  default_prompt: "Check this patent application file for reference numerals, formal defects, formatting issues, and specification drafting style."

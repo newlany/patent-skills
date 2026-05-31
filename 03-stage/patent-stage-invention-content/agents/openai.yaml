@@ -1,0 +1,7 @@
+interface:
+  display_name: "发明内容阶段"
+  short_description: "技术方案、有益效果、优选方案和发明内容重写"
+  default_prompt: "请使用 $patent-stage-invention-content 根据稳定权利要求和技术方案重构报告撰写或改写发明内容、技术方案和有益效果。"
+
+policy:
+  allow_implicit_invocation: false

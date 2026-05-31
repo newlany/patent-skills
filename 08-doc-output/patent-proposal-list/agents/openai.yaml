@@ -1,0 +1,4 @@
+interface:
+  display_name: "Patent Proposal List"
+  short_description: "Fixed-format Chinese patent proposal lists"
+  default_prompt: "Use $patent-proposal-list to generate a fixed-format Chinese patent proposal list from project mining materials."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Patent Correction DOCX"
+  short_description: "Apply correction notices and emit replacement-page DOCX files"
+  default_prompt: "Use $patent-application-correction-docx to process this ²¹ÕýÍ¨ÖªÊé and original application DOCX, fix the affected text, and generate replacement-page DOCX files without disturbing the original formatting."

@@ -1,0 +1,7 @@
+interface:
+  display_name: "厦大方法案"
+  short_description: "Drafting and DOCX repair for XMU method patent cases"
+  default_prompt: "Use $xmu-method-patent-agent to draft or revise an 厦大方法类专利申请案件。"
+
+policy:
+  allow_implicit_invocation: true

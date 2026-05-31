@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文专利总入口"
+  short_description: "统一判断中文专利任务该走哪个公共流程"
+  default_prompt: "请使用 $patent-cn 处理当前中文专利任务。先判断是撰写、审查和答复这类主流程，还是研究、支撑交付或系统自检，再进入对应公共流程。"
